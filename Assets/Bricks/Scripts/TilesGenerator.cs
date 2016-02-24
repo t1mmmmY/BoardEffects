@@ -14,15 +14,18 @@ public class TilesGenerator : MonoBehaviour
 	[SerializeField] Transform background;
 	[SerializeField] BaseTile tilePrefab;
 
-	List<BaseTile> allTiles;
+	[SerializeField] List<BaseTile> allTiles;
 	Vector2 currentSize = Vector2.zero;
 
 	float backgroudMeshSize = 10;
 	Vector2 backgroundSize = Vector2.zero;
 	Vector2 cellSize = Vector2.zero;
 
+	public static System.Action<BaseTile[]> onCreateTiles;
+
 	void Awake()
 	{
+		RemoveOldTiles();
 		allTiles = new List<BaseTile>();
 
 		if (background != null)
@@ -62,8 +65,15 @@ public class TilesGenerator : MonoBehaviour
 				tile.transform.parent = this.transform;
 				TrimName(tile.gameObject);
 
+				tile.SetViewportPosition(GetViewportPosition(i, j));
+
 				allTiles.Add(tile);
 			}
+		}
+
+		if (onCreateTiles != null)
+		{
+			onCreateTiles(allTiles.ToArray());
 		}
 	}
 
@@ -73,6 +83,7 @@ public class TilesGenerator : MonoBehaviour
 		{
 			foreach (BaseTile tile in allTiles)
 			{
+				//Because Destroy not working in edit mode
 				DestroyImmediate(tile.gameObject);
 			}
 		} 
@@ -99,10 +110,16 @@ public class TilesGenerator : MonoBehaviour
 	{
 		Vector3 size = Vector3.one;
 		size.x = cellSize.x;
-		size.y = Random.Range(1.0f, 5.0f);
+		size.y = 1 + Random.Range(-0.2f, 0.2f);
+//		size.y = Random.Range(1.0f, 5.0f);
 		size.z = cellSize.y;
 
 		return size;
+	}
+
+	Vector2 GetViewportPosition(int x, int y)
+	{
+		return new Vector2((float)x / width, (float)y / height);
 	}
 
 	void SetBackgroundDimensions()

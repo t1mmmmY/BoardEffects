@@ -3,25 +3,18 @@ using System.Collections;
 
 public abstract class BaseTile : MonoBehaviour 
 {
-	[SerializeField] MeshRenderer meshRenderer;
-	[SerializeField] Transform meshTransform;
+	public Vector2 viewportPosition { get; private set; }
+	public float force { get; protected set; }
 
-	//if need to change exactly this object. Mesh renderer also from this object.
-	[SerializeField] bool selfObject = true;
 
-	protected virtual void Awake()
+	public void SetViewportPosition(Vector2 position)
 	{
-		if (selfObject)
-		{
-			meshRenderer = this.GetComponent<MeshRenderer>();
-			meshTransform = this.transform;
+		viewportPosition = position;
+	}
 
-			if (meshRenderer == null)
-			{
-				Debug.LogError("MeshRenderer == null; " + this.gameObject.name);
-			}
-		}
-
+	public virtual void SetForce(float force)
+	{
+		this.force = force;
 	}
 
 }

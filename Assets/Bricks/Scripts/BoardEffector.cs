@@ -3,10 +3,10 @@ using System.Collections;
 
 public class BoardEffector : MonoBehaviour 
 {
-	[Range(0.0f, 1.0f)]
+	[Range(0.0f, 0.5f)]
 	[SerializeField] float touchAreaMultiplicator = 0.05f;
 
-	[Range(0.0f, 100.0f)]
+	[Range(0.0f, 40.0f)]
 	[SerializeField] float forceMultiplicator = 20;
 
 	BaseTile[] allTiles;
@@ -23,14 +23,19 @@ public class BoardEffector : MonoBehaviour
 		TouchController.onTouch -= OnTouch;
 	}
 
+	public void SetArea(float area)
+	{
+		touchAreaMultiplicator = area;
+	}
+
+	public void SetForce(float force)
+	{
+		forceMultiplicator = force;
+	}
+
 	void OnCreateTiles(BaseTile[] allTiles)
 	{
 		this.allTiles = allTiles;
-//		allTiles = new BaseTileEffector[allTiles.Length];
-//
-//		for (int i = 0; i < allTiles.Length; i++)
-//		{
-//		}
 	}
 
 	void OnTouch(Vector3 viewportPosition)

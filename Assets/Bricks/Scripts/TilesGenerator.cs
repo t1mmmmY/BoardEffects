@@ -48,6 +48,16 @@ public class TilesGenerator : MonoBehaviour
 		}
 	}
 
+	public void SetWidth(int newWidth)
+	{
+		width = newWidth;
+	}
+
+	public void SetHeight(int newHeight)
+	{
+		height = newHeight;
+	}
+
 	void GenerateTiles()
 	{
 		RemoveOldTiles();

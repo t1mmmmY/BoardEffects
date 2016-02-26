@@ -20,7 +20,7 @@ public class BrickEffector : BaseTileEffector
 		{
 			if (tweener.IsPlaying())
 			{
-				tweener.Pause();
+//				tweener.Pause();
 			}
 		}
 

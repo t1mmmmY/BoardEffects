@@ -6,9 +6,20 @@ public class TouchController : MonoBehaviour
 	[SerializeField] Camera boardCamera;
 
 	public static System.Action<Vector3> onTouch;
+	public static System.Action onBeginTouch;
+	public static System.Action onEndTouch;
 
-	void Update()
+
+	void LateUpdate()
 	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (onBeginTouch != null)
+			{
+				onBeginTouch();
+			}
+		}
+
 		if (Input.GetMouseButton(0))
 		{
 			Vector3 viewportPosition = GetWorldPosition(Input.mousePosition);
@@ -16,6 +27,14 @@ public class TouchController : MonoBehaviour
 			if (onTouch != null)
 			{
 				onTouch(viewportPosition);
+			}
+		}
+
+		if (Input.GetMouseButtonUp(0))
+		{
+			if (onEndTouch != null)
+			{
+				onEndTouch();
 			}
 		}
 	}

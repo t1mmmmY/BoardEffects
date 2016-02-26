@@ -7,9 +7,22 @@ public class InGameSettings : MonoBehaviour
 	[SerializeField] TilesGenerator generator;
 	[SerializeField] BoardEffector effector;
 
+	[SerializeField] WallSettings wallSettings;
+	[SerializeField] Material kernelMaterial;
+
 	[SerializeField] Animator panelAnimator;
 
+	[SerializeField] Text columnsLabel;
+	[SerializeField] Text rowsLabel;
+	[SerializeField] Text areaLabel;
+	[SerializeField] Text forceLabel;
+
 	bool showSettings = false;
+
+	void Start()
+	{
+		forceLabel.text = kernelMaterial.GetFloat("_Parallax").ToString();
+	}
 
 	void Update()
 	{
@@ -25,24 +38,31 @@ public class InGameSettings : MonoBehaviour
 		panelAnimator.SetBool("show", showSettings);
 	}
 
-	public void ChangeWidth(Slider slider)
+	public void ChangeColumns(Slider slider)
 	{
-		generator.SetWidth((int)slider.value);
+		columnsLabel.text = ((int)slider.value).ToString();
+		wallSettings.ChangeColumns((int)slider.value);
+//		generator.SetWidth((int)slider.value);
 	}
 
-	public void ChangeHeight(Slider slider)
+	public void ChangeRows(Slider slider)
 	{
-		generator.SetHeight((int)slider.value);
+		rowsLabel.text = ((int)slider.value).ToString();
+		wallSettings.ChangeRows((int)slider.value);
+//		generator.SetHeight((int)slider.value);
 	}
 
 	public void ChangeArea(Slider slider)
 	{
+		areaLabel.text = slider.value.ToString();
 		effector.SetArea(slider.value);
 	}
 	
 	public void ChangeForce(Slider slider)
 	{
-		effector.SetForce(slider.value);
+		forceLabel.text = slider.value.ToString();
+		kernelMaterial.SetFloat("_Parallax", slider.value);
+//		effector.SetForce(slider.value);
 	}
 
 	public void Exit()

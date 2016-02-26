@@ -14,6 +14,17 @@ public class WallSettings : MonoBehaviour
 
 	Vector2 currentSize = Vector2.zero;
 
+	public void ChangeColumns(int width)
+	{
+		columns = width;
+	}
+
+	public void ChangeRows(int height)
+	{
+		rows = height;
+	}
+
+
 	void Update()
 	{
 		if (wall == null)

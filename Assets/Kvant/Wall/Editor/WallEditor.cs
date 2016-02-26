@@ -134,10 +134,14 @@ namespace Kvant
 
             EditorGUILayout.PropertyField(_shapes, true);
 
-            if (EditorGUI.EndChangeCheck())
-                targetWall.NotifyConfigChange();
+//            if (EditorGUI.EndChangeCheck())
+//                targetWall.NotifyConfigChange();
 
             EditorGUILayout.PropertyField(_baseScale);
+
+			if (EditorGUI.EndChangeCheck())
+				targetWall.NotifyConfigChange();
+
             EditorGUILayout.PropertyField(_scaleRandomness);
 
             EditorGUILayout.PropertyField(_material);

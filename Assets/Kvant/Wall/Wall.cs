@@ -166,11 +166,18 @@ namespace Kvant
 
         [SerializeField]
         Vector3 _baseScale = Vector3.one;
+		Vector3 _oldScale = Vector3.one;
 
         public Vector3 baseScale {
             get { return _baseScale; }
-            set { _baseScale = value; }
+            set 
+			{ 
+				_baseScale = value;
+				NotifyConfigChange();
+			}
         }
+
+
 
         [SerializeField, Range(0, 1)]
         float _scaleRandomness = 0.1f;

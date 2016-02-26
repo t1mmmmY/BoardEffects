@@ -147,6 +147,8 @@ Shader "Kvant/Wall/Kernel"
    		float3 axes = float3(1, 1, h) + float3(0, 0, snoise(nc)) ;
 //        float3 axes = snoise_grad(nc) * 0.25;
     #endif
+        axes = max(1.0 + _ScaleNoise.z * (axes + 1) * 0.5, 0);
+    
 //        axes = max(1.0 - _ScaleNoise.z * (axes + 1) * 0.5, 0);
 
         float4 ret = float4(_BaseScale * axes * vari, nrand(uv, 4));
